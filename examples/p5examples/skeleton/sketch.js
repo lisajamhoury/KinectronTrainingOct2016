@@ -27,7 +27,7 @@ function setup() {
 
   // CONNECT TO MIRCROSTUDIO
   // kinectron = new Kinectron("kinectron", { 
-  //   "host": "128.122.151.151", 
+  //   "host": "kinectron.itp.tsoa.nyu.edu", 
   //   "port": "9001", 
   //   "path": "/"
   // });

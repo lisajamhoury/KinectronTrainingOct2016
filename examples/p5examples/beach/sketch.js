@@ -25,6 +25,13 @@ function setup() {
     "path": "/" // path defaults to /
   });
 
+  // CONNECT TO MIRCROSTUDIO
+  // kinectron = new Kinectron("kinectron", { 
+  //   "host": "kinectron.itp.tsoa.nyu.edu", 
+  //   "port": "9001", 
+  //   "path": "/"
+  // });
+
   // Create connection between remote and application
   kinectron.makeConnection();
 
