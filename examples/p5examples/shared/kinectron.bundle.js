@@ -49,7 +49,7 @@
 	// Import Peer.js 
 	var Peer = __webpack_require__(1);
 
-	Kinectron = function(peerid, network) {  
+	Kinectron = function(arg1, arg2) {  
 	  this.img = null;
 	  this.feed = null;
 	  this.body = null;
@@ -93,27 +93,26 @@
 	  this.HANDTIPRIGHT = 23;
 	  this.THUMBRIGHT = 24;
 	  
-	  // Peer variables 
+	  // Peer variables and defaults 
 	  var peer = null;
 	  var connection = null;
-	  var peerNet = null;
-	  var peerId = null;
+	  var peerNet = {host: 'localhost', port: 9001, path: '/'}; // Connect to localhost by default
+	  var peerId = 'kinectron'; // Connect to peer Id Kinectron by default 
 
 	  // Hidden div variables
 	  var myDiv = null;
 
-	  // Connect to peer over local host by default
-	  if (network) {
-	    peerNet = network;
-	  } else {
-	    peerNet = {host: 'localhost', port: 9001, path: '/'};
-	  }
-
-	  if (peerid) {
+	  // Check for ip address in "quickstart" method  
+	  if (typeof arg1 !=="undefined" && typeof arg2 == "undefined") {
+	    var host = arg1;
+	    peerNet.host = host;
+	    // Check for new network provided by user
+	  } else if (typeof arg1 !== "undefined" && typeof arg2 !== "undefined") {
+	    var peerid = arg1;
+	    var network = arg2;
 	    peerId = peerid;
-	  } else {
-	    peerId = 'kinectron';
-	  }
+	    peerNet = network;
+	  } 
 
 	  // Create new peer
 	  peer = new Peer(peerNet);
@@ -199,9 +198,14 @@
 	        case 'trackedBodyFrame':
 	          this.body = data;
 
-	          if (this.jointName && this.trackedJointCallback) {
+	          // Check that joint exists
+	          // TODO Why does joint come in as 0 when undefined
+	          if (this.jointName && this.trackedJointCallback && this.body.joints[this.jointName] !== 0) {
 	            var joint = this.body.joints[this.jointName]; 
+
+	            joint.trackingId  = this.body.trackingId;
 	            this.trackedJointCallback(joint);
+	            
 	          }
 
 	          if (this.trackedBodiesCallback) {

@@ -19,19 +19,10 @@ function setup() {
   noStroke();
 
   // Define and create an instance of kinectron
-  kinectron = new Kinectron("kinectron", { // username matches application display, default is kinectron 
-    "host": " ", // host matches application display
-    "port": "9001", // port matches application display
-    "path": "/" // path defaults to /
-  });
+  kinectron = new Kinectron("192.168.1.7");
 
   // CONNECT TO MIRCROSTUDIO
-  // kinectron = new Kinectron("kinectron", { 
-  //   "host": "kinectron.itp.tsoa.nyu.edu", 
-  //   "port": "9001", 
-  //   "path": "/"
-  // });
-
+  //kinectron = new Kinectron("kinectron.itp.tsoa.nyu.edu");
 
   // Connect with application over peer
   kinectron.makeConnection();
